@@ -11,16 +11,20 @@ date: "2023-12-14"
 knitr::opts_chunk$set(echo = TRUE) #any code goes within these gray chunks; any narrative is outside of the code chunk
 ```
 
-```{r packages}
+```{r packages, include=FALSE}
 library(tidyverse)
 
 ```
+# Introduction
 This report was prepared to the attention of the United Nations. 
 
-```{r data}
+## Plotting Data 
+
+```{r data, include=FALSE}
 gapminder_1997 <- read_csv("Data/gapminder_1997.csv")
 ```
-```{r plot}
+```{r plot, echo = FALSE}
+#echo means you still get output but not the code
 #plot of life expectancy vs GDP per capita
 ggplot(data = gapminder_1997) +
   aes(y = lifeExp, x = gdpPercap, color = continent, size = pop/100000) +
@@ -30,5 +34,42 @@ ggplot(data = gapminder_1997) +
 
 gapminder_1997
 
+```
+
+
+
+```{r}
+#get number of distinct countries
+nCountries <- gapminder_1997 %>% 
+  select(country) %>% 
+  n_distinct()
+
+nCountries
+
+#get minimum GDP, rounded
+minGDP <- gapminder_1997 %>% 
+  summarize(round(min(gdpPercap))) %>% 
+  pull() #use pull so you can use output of summarize outside of table
+
+maxGDP <- gapminder_1997 %>% 
+  summarize(round(max(gdpPercap))) %>% 
+  pull()
+
+
+```
+_Summary Tables_
+
+|Summary of Data|
+|------------|-------------|
+|Number of Countries|`r nCountries`| #r nCountries will automatically update if new data is added
+|Minimum GDP per capita|`r minGDP`| #need to use the special backtick 
+|Maximum GDP per capita|`r maxGDP`|
+
+```{r}
+library(knitr) #need to load library knitr for use of kable function
+gapminder_1997 %>% 
+  filter(continent == "Oceania") %>% 
+  select(-continent, -lifeExp) %>% 
+  kable() #takes filtered result and puts it into table for R Markdown document
 ```
 
