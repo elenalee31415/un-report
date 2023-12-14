@@ -156,6 +156,14 @@ co2_emissions <- co2_emissions_dirty %>%
 inner_join(gapminder_data, co2_emissions)
 inner_join(gapminder_data, co2_emissions, by="country")
 
-gapminder_co2 <- inner_join(gapminder_data_2007, co2_emissions, by = "country")
+gapminder_co2 <- inner_join(gapminder_data_2007, co2_emissions, by = "country") #by can take multiple arguments, separated by comma
+
+ggplot(gapminder_co2, aes(x = gdpPercap, y = per_capita_emissions)) +
+  geom_point() +
+  labs(x = "GDP (per capita)", y = "CO2 emitted (per capita)", 
+       title = "Association between a nation's GDP and CO2 production")
+
+ggsave("figures/gdppercap_vs_CO2.png")
+  
 
 
