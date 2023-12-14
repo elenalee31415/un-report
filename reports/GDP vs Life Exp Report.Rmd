@@ -1,0 +1,34 @@
+---
+title: "A UN Report on the Relationship between GDP and Life Expectancy"
+output: html_document
+date: "2023-12-14"
+---
+
+```{r setup, include=FALSE} 
+#include determines whether or not code is shown or not
+#control or command + option + I will insert a code chunk 
+#can also use echo = TRUE or echo = FALSE in individual code chunks to say whether or not it should be included 
+knitr::opts_chunk$set(echo = TRUE) #any code goes within these gray chunks; any narrative is outside of the code chunk
+```
+
+```{r packages}
+library(tidyverse)
+
+```
+This report was prepared to the attention of the United Nations. 
+
+```{r data}
+gapminder_1997 <- read_csv("Data/gapminder_1997.csv")
+```
+```{r plot}
+#plot of life expectancy vs GDP per capita
+ggplot(data = gapminder_1997) +
+  aes(y = lifeExp, x = gdpPercap, color = continent, size = pop/100000) +
+  geom_point() +
+  labs(y = "Life Expectancy", x = "GDP per capita", 
+       title = "How does life expectancy vary with GDP", size = "Population (in millions)")
+
+gapminder_1997
+
+```
+
