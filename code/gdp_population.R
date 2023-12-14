@@ -55,3 +55,5 @@ ggplot(data = gapminder_data) + #year as x axis, life expectancy as y axis, cont
   scale_color_brewer(palette = "Set2") + 
   labs(x = "Year", y = "Life Expectancy", 
        title = "How does life expectancy vary by year?", size = "Population (in millions")
+
+ggsave("figures/gdpPercap_lifeExp.png")
